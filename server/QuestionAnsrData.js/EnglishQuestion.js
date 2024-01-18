@@ -1,4 +1,4 @@
-// EnglishQuestion.js
+
 const EnglishQuestion = [
     {
         id: 1,

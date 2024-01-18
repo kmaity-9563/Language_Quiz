@@ -31,10 +31,6 @@ function Quiz({ questions, answers, onSubmit }) {
     });
   };
 
-  // useEffect(() => {
-  //   // Update the user's score in Recoil state when userMarks changes
-  //   setUserscore((prevScore) => prevScore + userMarks);
-  // }, [userMarks, setUserscore]);
 
   return (
     <div>

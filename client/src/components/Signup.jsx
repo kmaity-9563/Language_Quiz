@@ -2,8 +2,6 @@ import Button from '@mui/material/Button';
 import TextField from "@mui/material/TextField";
 import { Card } from "@mui/material";
 import { useState } from "react";
-// import axios from "axios";
-// import { BASE_URL } from "../config.js";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userState } from "../atoms/user";
@@ -32,19 +30,12 @@ function Signup() {
             });
     
             const data = await response.json();
-            console.log(data);
             localStorage.setItem("token", data.token);
-
             setUserName(username);
-            console.log(userName);
-
             navigate("/login")
         } catch (error) {
             console.error("fetch request failed:", error);
         }
-        // window.location = "/"
-        // setUser({userEmail: email, isLoading: false})
-        // navigate("/courses")
     };
 
     return (

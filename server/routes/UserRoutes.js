@@ -37,8 +37,8 @@ router.post('/signup', async (req, res, next) => {
         const newUser = new User({
              username,
              password : hashedPassword,
-             LanguageprofiencyScore: 0, // set initial score to 0
-             LanguageprofiencyLevel: 0 // set initial level to 0
+             LanguageprofiencyScore: 0, 
+             LanguageprofiencyLevel: 0
              });
 
         await newUser.save();
@@ -69,7 +69,6 @@ router.post('/login', async (req, res, next) => {
         }
 
         if (!user.password) {
-            // Handle the case where the password is not found
             return res.status(500).json({ message: 'Password not found in user object' });
         }
 
