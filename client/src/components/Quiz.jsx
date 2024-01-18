@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { userScore } from "../atoms/userScore";
 import { useRecoilState } from "recoil";
 
@@ -8,7 +8,6 @@ function Quiz({ questions, answers, onSubmit }) {
   const [Userscore, setUserscore] = useRecoilState(userScore);
 
   const checkAnswer = (questionIndex, selectedOptionIndex) => {
-    // Ensure valid inputs
     if (
       !Array.isArray(answers) ||
       answers.length <= questionIndex ||
@@ -28,13 +27,14 @@ function Quiz({ questions, answers, onSubmit }) {
     const isCorrect = selectedOptionIndex === answers[questionIndex];
 
     setUserMarks((prevMarks) => {
-      // Update marks based on correctness
-      return isCorrect ? prevMarks + 2 : prevMarks;
+      return isCorrect ? prevMarks + 2 : prevMarks - 2;
     });
-
-    const currentScore = userMarks + Userscore;
-    setUserscore(currentScore);
   };
+
+  // useEffect(() => {
+  //   // Update the user's score in Recoil state when userMarks changes
+  //   setUserscore((prevScore) => prevScore + userMarks);
+  // }, [userMarks, setUserscore]);
 
   return (
     <div>
@@ -59,6 +59,7 @@ function Quiz({ questions, answers, onSubmit }) {
         </div>
       ))}
       <button onClick={() => onSubmit(userMarks)}>Submit Quiz</button>
+      {setUserscore(userMarks)}
       <p>User Marks: {userMarks}</p>
     </div>
   );

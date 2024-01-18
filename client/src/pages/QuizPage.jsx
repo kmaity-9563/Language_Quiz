@@ -5,29 +5,32 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Quiz from "../components/Quiz";
 import { userState } from '../atoms/user';
-import { useRecoilValue, useRecoilState } from "recoil";
-import { userScore as userScoreAtom } from '../atoms/userScore';
+import { useRecoilState , useRecoilValue } from "recoil";
+import { userScore  } from '../atoms/userScore';
 import Dashboard from "../components/Dashboard";
+import Navbar from "../components/Navbar";
 
 function QuizPage() {
   const user = useRecoilValue(userState);
   const [localUserScore, setLocalUserScore] = useState(0);
   const [questions, setQuestions] = useState([]);
-  const [Answers, setAnswers] = useState([]);
+  const [answers, setAnswers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedLanguage, setSelectedLanguage] = useState(null);
+  // const [userscore, setUserScore] = useRecoilState(userScore)
 
   useEffect(() => {
-    async function fetchQuiz() {
+    async function fetchQuiz(language) {
       try {
-        const response = await axios.get("http://localhost:3000/qna/English", {
+        const response = await axios.get(`http://localhost:3000/qna/${language}`, {
           headers: {
             Authorization: "Bearer " + user.token
           }
         });
-        console.log(response.data)
-        const { englishQuestions, englishAnswers } = response.data;
-        setQuestions(englishQuestions);
-        setAnswers(englishAnswers)
+        console.log(response.data);
+        const { questions, answers } = response.data;
+        setQuestions(questions);
+        setAnswers(answers);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching quiz:", error);
@@ -35,25 +38,21 @@ function QuizPage() {
       }
     }
 
-    fetchQuiz();
-  }, [user.token]);
+    if (selectedLanguage) {
+      setLoading(true);
+      fetchQuiz(selectedLanguage);
+    }
+  }, [selectedLanguage, user.token]);
 
   const handleQuizSubmit = (userResponses) => {
-    console.log("Quiz submission" , userResponses)
-    // Make sure userResponses is an array
-    // if (!Array.isArray(userResponses)) {
-    //   console.error("Invalid userResponses, expected an array");
-    //   return;
-    // }
-  
     const score = userResponses.reduce((totalScore, response, index) => {
-      return response === Answers[index] ? totalScore + 2 : totalScore;
+      return response === answers[index] ? totalScore + 2 : totalScore - 2;
     }, 0);
   
     setLocalUserScore(score);
+    // setUserScore(score)
     updateScore(score);
   };
-  
 
   const updateScore = async (score) => {
     try {
@@ -73,26 +72,51 @@ function QuizPage() {
   };
 
   return (
-    <div
-      style={{ display: 'flex', alignItems: "center", justifyContent: "center", width: "100%", height: "100vh" }}
-    >
-      <Card sx={{ minWidth: 275 }}>
-        <CardContent>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Language Proficiency Quiz
-          </Typography>
-          {loading ? (
-            <p>Loading quiz...</p>
-          ) : (
- // QuizPage.jsx
-<Quiz questions={questions} answers={Answers} onSubmit={handleQuizSubmit} />
+    // <div
+    //   style={{ display: 'flex', flexDirection: 'column', alignItems: "center", justifyContent: "center", width: "100%", height: "100vh" }}
+    // >
+    //   <Navbar onLanguageSelect={setSelectedLanguage} />
+    //   <Card sx={{ minWidth: 275, marginBottom: "20px" }}>
+    //     <CardContent>
+    //       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+    //         Language Proficiency Quiz
+    //       </Typography>
+    //       {loading ? (
+    //         <p>Loading quiz...</p>
+    //       ) : (
+    //         <Quiz questions={questions} answers={answers} onSubmit={handleQuizSubmit} />
+    //       )}
+    //     </CardContent>
+    //   </Card>
+    //   <Dashboard />
+    // </div>
 
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    {/* Navbar */}
+    <Navbar onLanguageSelect={setSelectedLanguage} />
 
-          )}
-        </CardContent>
-      </Card>
-      <Dashboard/>
+    {/* Content */}
+    <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+      {/* Quiz Section */}
+      <div style={{ flex: 1, overflowY: 'auto' }}>
+        <Card sx={{ minWidth: 275 }}>
+          <CardContent>
+            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+              Language Proficiency Quiz
+            </Typography>
+            {loading ? (
+              <p>Loading quiz...</p>
+            ) : (
+              <Quiz questions={questions} answers={answers} onSubmit={handleQuizSubmit} />
+            )}
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Dashboard */}
+      <Dashboard userScore={localUserScore} />
     </div>
+  </div>
   );
 }
 
