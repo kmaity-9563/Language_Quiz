@@ -1,4 +1,4 @@
-export default frenchQuestion [
+const frenchQuestion = [
     {
         id: 1,
         question: "J'ai parlé à ____.",
@@ -42,4 +42,6 @@ export default frenchQuestion [
 ];
 
 
-export const answers = [1, 1, 1, 1, 1];
+ const frenchAnswers = [1, 1, 1, 1, 1];
+
+module.exports = {frenchQuestion , frenchAnswers}

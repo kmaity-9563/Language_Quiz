@@ -2,16 +2,26 @@
 
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { userScore  } from '../atoms/userScore';
+import { userScore } from '../atoms/userScore';
 
 function Dashboard() {
   const userscore = useRecoilValue(userScore);
 
+  const dashboardStyle = {
+    marginLeft: "200px",
+    width: "200px",
+    borderRadius: "2px",
+    border: "1px solid black",
+    padding: "10px",
+  };
+
   return (
-    <div style={{ marginLeft: "20px", width: "200px" }}>
+    <div style={dashboardStyle}>
       <h3>Dashboard</h3>
-      <p>Score: {userscore.score}</p>
-      <p>Level: {userscore.level}</p>
+      {console.log(userscore)}
+      <p>Score: {userscore}</p>
+      {/* Assuming level is a property of the score object */}
+      {/* <p>Level: {userscore.level}</p> */}
     </div>
   );
 }
