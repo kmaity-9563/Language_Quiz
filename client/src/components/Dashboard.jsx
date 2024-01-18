@@ -1,4 +1,3 @@
-// Dashboard.js
 
 import React from "react";
 import { useRecoilValue } from "recoil";
@@ -20,8 +19,6 @@ function Dashboard() {
       <h3>Dashboard</h3>
       {console.log(userscore)}
       <p>Score: {userscore}</p>
-      {/* Assuming level is a property of the score object */}
-      {/* <p>Level: {userscore.level}</p> */}
     </div>
   );
 }

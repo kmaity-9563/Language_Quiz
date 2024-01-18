@@ -17,7 +17,6 @@ function QuizPage() {
   const [answers, setAnswers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
-  // const [userscore, setUserScore] = useRecoilState(userScore)
 
   useEffect(() => {
     async function fetchQuiz(language) {
@@ -50,7 +49,6 @@ function QuizPage() {
     }, 0);
   
     setLocalUserScore(score);
-    // setUserScore(score)
     updateScore(score);
   };
 
@@ -72,32 +70,10 @@ function QuizPage() {
   };
 
   return (
-    // <div
-    //   style={{ display: 'flex', flexDirection: 'column', alignItems: "center", justifyContent: "center", width: "100%", height: "100vh" }}
-    // >
-    //   <Navbar onLanguageSelect={setSelectedLanguage} />
-    //   <Card sx={{ minWidth: 275, marginBottom: "20px" }}>
-    //     <CardContent>
-    //       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-    //         Language Proficiency Quiz
-    //       </Typography>
-    //       {loading ? (
-    //         <p>Loading quiz...</p>
-    //       ) : (
-    //         <Quiz questions={questions} answers={answers} onSubmit={handleQuizSubmit} />
-    //       )}
-    //     </CardContent>
-    //   </Card>
-    //   <Dashboard />
-    // </div>
-
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-    {/* Navbar */}
+    
     <Navbar onLanguageSelect={setSelectedLanguage} />
-
-    {/* Content */}
     <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-      {/* Quiz Section */}
       <div style={{ flex: 1, overflowY: 'auto' }}>
         <Card sx={{ minWidth: 275 }}>
           <CardContent>
@@ -112,8 +88,6 @@ function QuizPage() {
           </CardContent>
         </Card>
       </div>
-
-      {/* Dashboard */}
       <Dashboard userScore={localUserScore} />
     </div>
   </div>

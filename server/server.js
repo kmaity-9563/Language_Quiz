@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const UserRoutes = require('./routes/UserRoutes');
-const EnglishRoutes = require('./routes/QuestionRoutes'); // Adjust the path accordingly
+const EnglishRoutes = require('./routes/QuestionRoutes'); 
 
 const app = express();
 
@@ -10,8 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/user', UserRoutes);
-app.use('/qna', EnglishRoutes); // Use your EnglishRoutes here
-
+app.use('/qna', EnglishRoutes);
 app.get('/', (req, res) => {
   res.send('Welcome');
 });

@@ -1,15 +1,8 @@
-// import { useState } from 'react'
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
 import  Login  from './components/Login'
 import Signup from './components/Signup'
 import QuizPage from './pages/QuizPage'
-// import './App.css'
-// import axios from 'axios';
-// import { useEffect } from 'react';
-// import { useSetRecoilState } from 'recoil';
-// import { userState } from './store/atoms/user'
-
 
 function App() {
   return (
