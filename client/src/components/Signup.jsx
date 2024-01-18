@@ -6,7 +6,7 @@ import { useState } from "react";
 // import { BASE_URL } from "../config.js";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { userState } from "../store/atoms/user.js";
+import { userState } from "../atoms/user";
 
 function Signup() {
     const [username, setUsername] = useState("");
@@ -48,7 +48,7 @@ function Signup() {
     };
 
     return (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", marginLeft: "100" }}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
            
             <div style={{ display: "flex", justifyContent: "center" }}>
                 <Card variant="outlined" style={{ width: 400, padding: 20, backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>

@@ -1,79 +1,83 @@
 // import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-const { Login } = require('./components/Login')
-const {Signup} = require('./components/Signup')
-import './App.css'
+// import { useNavigate } from 'react-router-dom';
+import  Login  from './components/Login'
+import Signup from './components/Signup'
+import QuizPage from './pages/QuizPage'
+// import './App.css'
+// import axios from 'axios';
+// import { useEffect } from 'react';
+// import { useSetRecoilState } from 'recoil';
+// import { userState } from './store/atoms/user'
+
 
 function App() {
-
   return (
-    <div className='App' style={{ width: "100vw", height: "100hw", backgroundColor: "#eeeeee" }}>
+    <div className='App' style={{ width: '100vw', height: '100vh', backgroundColor: '#eeeeee' }}>
       <Router>
-        <InitUser />
+        {/* <InitUser /> */}
         <Routes>
-          <Route path={Login} element={<Login />} />
-          <Route path={Signup} element={<Signup />} />
+          <Route path={"/Login"} element={<Login />} />
+          <Route path={"/Signup"} element={<Signup />} />
+          <Route path={"/quiz"} element={<QuizPage />} />
         </Routes>
       </Router>
     </div>
   )
 }
 
+// function InitUser() {
 
+//   const setUser = useSetRecoilState(userState);
+//   const navigate = useNavigate();
 
-function InitUser() {
+//   const init = async () => {
+//     try {
+//       const response = await axios.get('http://localhost:3000/user/init', {
+//         headers: {
+//           "Authorization": "Bearer " + localStorage.getItem("token")
+//         },
+//         withCredentials: true
+//       });
 
-  const setUser = useSetRecoilState(userState);
-  const navigate = useNavigate();
+//       if (!response.ok) {
+//         throw new Error(`HTTP error! Status: ${response.status}`);
+//       }
 
-  const init = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/user/init', {
-        headers: {
-          "Authorization": "Bearer " + localStorage.getItem("token")
-        },
-        withCredentials: true
-      });
+//       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+//       console.log("init response: " + data.username);
 
-      const data = await response.json();
+//       if (data.username) {
+//         setUser({
+//           isLoading: false,
+//           userName: data.username
+//         });
 
-      console.log("init response: " + data.username);
+//         // navigate("/login")
 
-      if (data.username) {
-        setUser({
-          isLoading: false,
-          userName: data.username
-        });
+//       } else {
+//         setUser({
+//           isLoading: false,
+//           userName: null
+//         });
+//       }
+//     } catch (error) {
+//       console.error("Error during initialization:", error);
 
-        // navigate("/login")
+//       setUser({
+//         isLoading: false,
+//         userName: null
+//       });
+//     }
+//   };
 
-      } else {
-        setUser({
-          isLoading: false,
-          userName: null
-        });
-      }
-    } catch (error) {
-      console.error("Error during initialization:", error);
+//   useEffect(() => {
+//     init();
+//   }, []);
 
-      setUser({
-        isLoading: false,
-        userName: null
-      });
-    }
-  };
-
-  useEffect(() => {
-    init();
-  }, []);
-
-  return <></>;
-}
+//   return <></>;
+// }
 
 
 export default App
