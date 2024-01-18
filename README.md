@@ -22,3 +22,8 @@ Install quiz application server with npm
   npm install 
   npm run dev
 ```
+## Screenshots
+
+login
+
+![ss1](https://github.com/kmaity-9563/Language_Quiz/assets/75235204/00e2f69d-da96-45d0-bc27-2682bf94e154)
