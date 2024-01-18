@@ -94,6 +94,28 @@ router.post('/login', async (req, res, next) => {
         res.status(500).json({ message: 'Something went wrong during login' });
     }
 });
+router.put('/updateUserScore', authentication, async (req, res, next) => {
+    try {
+      const { userId, score } = req.body;
+        console.log(`User ${userId}`)
+      const updatedUser = await User.findByIdAndUpdate(userId, {
+        LanguageprofiencyScore: score,
+      }, { new: true }); 
+  
+      if (!updatedUser) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      res.status(200).json({ message: 'User score updated successfully', updatedUser });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Something went wrong', error: err.message });
+    }
+  });
+  
+
+module.exports = router;
+
 
 
 

@@ -4,14 +4,13 @@ import { Card, Typography } from "@mui/material";
 import {useState} from "react";
 import { styled } from "@mui/material/styles";
 // import Button from '@mui/material/Button';
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import axios from "axios";
 // import { BASE_URL } from "../config.js";
 import { useNavigate } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 // import { json } from "stream/consumers";
-import {userState} from "../store/atoms/user";
+import {userState} from "../atoms/user";
 import { useRecoilState } from "recoil";
 import { useEffect } from "react";
 
@@ -47,7 +46,7 @@ function Login() {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem("userInfo", JSON.stringify(response.data));
       setUser(response.data)
-      navigate('/chat');
+      navigate('/quiz');
     } catch (error) {
       console.error('Error during login:', error);
       // setErrorMessage(error.message);
@@ -57,13 +56,6 @@ function Login() {
 useEffect(() => {
   console.log('Updated user:', user);
 }, [user]);
-// useEffect(() => {
-//   console.log('Updated userName:');
-// }, [setUser.userName]);
-
-   
-
-  
 
   const VisuallyHiddenInput = styled("input")({
     clip: "rect(0 0 0 0)",
